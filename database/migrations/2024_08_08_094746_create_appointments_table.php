@@ -13,13 +13,14 @@ return new class extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
-            $table->string('appointment_type');
+            $table->enum('appointment_type',['physical','virtual'])->default('physical');
             $table->string('department_name');
-            $table->string('doctor_name')->nullable();
+            $table->string('doctor_name');
             $table->date('appointment_time');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
+
         });
     }
 
