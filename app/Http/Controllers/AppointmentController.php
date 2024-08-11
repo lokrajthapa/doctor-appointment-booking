@@ -6,6 +6,9 @@ use App\Models\Appointment;
 use App\Models\Department;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\AppointmentBookedEmail;
+
 
 class AppointmentController extends Controller
 {
@@ -50,6 +53,7 @@ class AppointmentController extends Controller
         ]);
 
         $appointment->save();
+        Mail::to(Auth::user())->send(new AppointmentBookedEmail($appointment));
 
         return redirect('/appointments')->with('success', 'Appointments has booked');
 

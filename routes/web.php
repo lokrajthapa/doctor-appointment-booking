@@ -3,6 +3,7 @@
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\UserController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -23,6 +24,19 @@ Route::middleware('auth')->group(function () {
 Route::resource('users', UserController::class);
 
 Route::resource('appointments', AppointmentController::class);
+
+// Route::get('/testroute', function() {
+//     $name = "Funny Coder";
+
+//     // The email sending is done using the to method on the Mail facade
+//     Mail::to('testreceiver@gmail.com'')->send(new MyTestEmail($name));
+// });
+Route::get('/mailtest',function(){
+    $name="lokraj";
+
+    return "Done";
+
+});
 
 
 require __DIR__.'/auth.php';
