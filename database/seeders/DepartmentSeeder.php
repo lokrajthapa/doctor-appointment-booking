@@ -14,7 +14,7 @@ class DepartmentSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('departments')->insert(
+        DB::table('departments')->insert([
             [
                 'name' => 'Emergency Department (ER)',
             ],
@@ -42,6 +42,9 @@ class DepartmentSeeder extends Seeder
             [
                 'name' => 'Psychiatry',
             ],
+
+        ]
+
         );
     }
 }

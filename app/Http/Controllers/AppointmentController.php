@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Appointment;
+use App\Models\Department;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -13,7 +14,7 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        $appointments= Appointment::all();
+        $appointments = Appointment::all();
         return view('appointments.index', compact('appointments'));
     }
 
@@ -22,7 +23,10 @@ class AppointmentController extends Controller
      */
     public function create(Request $request)
     {
-      return view('appointments.create');
+
+      $departments=  Department::with('doctors')->get();
+
+      return view('appointments.create',compact('departments'));
     }
 
     /**
@@ -30,21 +34,19 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
-            'department_name' => 'required|string|max:255',
-            'doctor_name' => 'required',
+            'department_id' => 'required|max:255',
+            'doctor_id' => 'required',
             'appointment_time' => 'required',
 
         ]);
         $appointment = new Appointment([
-            'user_id'=>Auth::user()->id,
-            'department_type' => $request->get('department_type'),
-            'department_name' => $request->get('department_name'),
-            'doctor_name' => $request->get('doctor_name'),
+            'user_id'=>$request->get('user_id'),
+            'appointment_type' => $request->get('appointment_type'),
+            'department_id' => $request->get('department_id'),
+            'doctor_id' => $request->get('doctor_id'),
             'appointment_time' => $request->get('appointment_time'),
-
-
-
         ]);
 
         $appointment->save();
@@ -82,6 +84,10 @@ class AppointmentController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+         $appointment = Appointment::find($id);
+         $appointment->delete();
+
+         return redirect('/appointments')->with('success', 'Appointment has been deleted');
+
     }
 }
