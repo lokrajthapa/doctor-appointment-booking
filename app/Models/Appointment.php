@@ -10,7 +10,11 @@ class Appointment extends Model
 {
     use HasFactory;
 
-    protected $filable=['appointment_type','patient_id'];
+    protected $fillable=['appointment_type',
+    'user_id',
+    'department_id',
+    'doctor_id',
+    'appointment_time'];
 
    public function user():BelongsTo
    {
