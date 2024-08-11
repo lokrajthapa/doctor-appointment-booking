@@ -53,7 +53,7 @@ class AppointmentController extends Controller
         ]);
 
         $appointment->save();
-        Mail::to(Auth::user())->send(new AppointmentBookedEmail($appointment));
+        Mail::to(Auth::user())->queue(new AppointmentBookedEmail($appointment));
 
         return redirect('/appointments')->with('success', 'Appointments has booked');
 
