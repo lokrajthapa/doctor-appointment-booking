@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->enum('appointment_type',['physical','virtual'])->default('physical');
-            $table->integer('department_id');
-            $table->integer('doctor_id');
+            $table->string('department_name');
+            $table->string('doctor_name');
             $table->date('appointment_time');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');

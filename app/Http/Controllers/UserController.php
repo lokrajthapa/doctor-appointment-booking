@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
@@ -58,14 +59,18 @@ class UserController extends Controller
      // Show the form for editing the specified resource.
      public function edit($id)
      {
+        $user = User::find($id);
 
-         $user = User::find($id);
+        Gate::authorize('edit',$user);
+
          return view('users.edit', compact('user'));
      }
 
      // Update the specified resource in storage.
      public function update(Request $request, $id)
      {
+
+
 
 
 
@@ -79,6 +84,8 @@ class UserController extends Controller
          ]);
 
          $user = User::find($id);
+         Gate::authorize('update',$user);
+
          if ($request->hasFile('profile_image')) {
 
             if ($user->profile_image) {
@@ -110,11 +117,11 @@ class UserController extends Controller
      }
 
      // Remove the specified resource from storage.
-     public function destroy($id)
+     public function destroy(User $user)
      {
-         $user = User::find($id);
+        Gate::authorize('destroy',$user);
+         $user = User::find($user);
          $user->delete();
-
-         return redirect('/users')->with('success', 'User has been deleted');
+         return redirect('/users')->with('delete', 'User has been deleted');
      }
 }

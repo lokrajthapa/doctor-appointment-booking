@@ -13,7 +13,7 @@
              <a href="{{ route('appointments.create') }}"> <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Book Appointment </button>      </a>
                 <div class="p-6 text-gray-900">
                     @if (session('success'))
-                        <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400">
+                         <div class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400">
                               {{ session('success') }}
                           </div>
                     @endif
@@ -26,7 +26,7 @@
                                     Appointment Type
                                 </th>
                                 <th scope="col" class="px-6 py-3">
-                                    Department Type
+                                    Department name
                                 </th>
                                 <th scope="col" class="px-6 py-3">
                                     Date
@@ -46,14 +46,14 @@
                                         {{ $appointment->user_type }}
                                     </th>
                                     <td class="px-6 py-4">
-                                        {{ $appointment->department_id }}
+                                        {{ $appointment->department_name }}
                                     </td>
                                     <td class="px-6 py-4">
                                         {{ $appointment->appointment_time }}
                                     </td>
                                     <td class="px-6 py-4">
 
-                                        <a href="{{ route('appointments.edit', $appointment->id) }}" class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Edit</a>
+                                        {{-- <a href="{{ route('appointments.edit', $appointment->id) }}" class="focus:outline-none text-white bg-purple-700 hover:bg-purple-800 focus:ring-4 focus:ring-purple-300 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-purple-600 dark:hover:bg-purple-700 dark:focus:ring-purple-900">Edit</a> --}}
                                         <form action="{{ route('appointments.destroy',$appointment->id) }}" method="POST" style="display:inline;">
                                             @csrf
                                             @method('DELETE')

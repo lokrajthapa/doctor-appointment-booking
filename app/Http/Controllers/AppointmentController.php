@@ -26,9 +26,7 @@ class AppointmentController extends Controller
      */
     public function create(Request $request)
     {
-
       $departments=  Department::with('doctors')->get();
-
       return view('appointments.create',compact('departments'));
     }
 
@@ -38,25 +36,24 @@ class AppointmentController extends Controller
     public function store(Request $request)
     {
 
+
         $request->validate([
-            'department_id' => 'required|max:255',
-            'doctor_id' => 'required',
+            'department_name' => 'required|max:255',
+            'doctor_name' => 'required',
             'appointment_time' => 'required',
 
         ]);
         $appointment = new Appointment([
             'user_id'=>$request->get('user_id'),
             'appointment_type' => $request->get('appointment_type'),
-            'department_id' => $request->get('department_id'),
-            'doctor_id' => $request->get('doctor_id'),
+            'department_name' => $request->get('department_name'),
+            'doctor_name' => $request->get('doctor_name'),
             'appointment_time' => $request->get('appointment_time'),
         ]);
 
         $appointment->save();
         Mail::to(Auth::user())->queue(new AppointmentBookedEmail($appointment));
-
         return redirect('/appointments')->with('success', 'Appointments has booked');
-
     }
 
     /**
