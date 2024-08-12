@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\AppointmentBookedEmail;
-
+use Illuminate\Support\Facades\Gate;
 
 class AppointmentController extends Controller
 {
@@ -43,6 +43,8 @@ class AppointmentController extends Controller
             'appointment_time' => 'required',
 
         ]);
+
+
         $appointment = new Appointment([
             'user_id'=>$request->get('user_id'),
             'appointment_type' => $request->get('appointment_type'),
@@ -86,6 +88,8 @@ class AppointmentController extends Controller
     public function destroy(string $id)
     {
          $appointment = Appointment::find($id);
+
+        Gate::authorize('delete',$appointment);
          $appointment->delete();
 
          return redirect('/appointments')->with('success', 'Appointment has been deleted');
