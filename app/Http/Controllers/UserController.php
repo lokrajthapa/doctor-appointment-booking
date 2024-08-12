@@ -80,7 +80,6 @@ class UserController extends Controller
             //   'user_type' => 'required|in:patient,doctor,admin',
              'age'=>'required|integer',
              'gender'=>'in:male,female,other'
-
          ]);
 
          $user = User::find($id);
@@ -119,8 +118,9 @@ class UserController extends Controller
      // Remove the specified resource from storage.
      public function destroy(User $user)
      {
-        Gate::authorize('destroy',$user);
-         $user = User::find($user);
+        Gate::authorize('delete',$user);
+
+         $user = User::find($user->id);
          $user->delete();
          return redirect('/users')->with('delete', 'User has been deleted');
      }
