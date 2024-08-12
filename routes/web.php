@@ -17,7 +17,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/dashboard',[DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
-    Route::get('myAppointments', [DashboardController::class,'wonAppointment'])->name('myAppointments');
+    Route::get('myAppointments', [DashboardController::class,'myAppointment'])->name('myAppointments');
 
     Route::resource('users', UserController::class);
     Route::resource('appointments', AppointmentController::class);

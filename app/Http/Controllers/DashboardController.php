@@ -17,11 +17,13 @@ class DashboardController extends Controller
      return view('dashboard',compact('numberOfDoctors'));
  }
 
-//   public function  wonAppointment()
-//   {
-//     $user=Auth::user()->id;
+  public function  myAppointment()
+  {
 
+      $userId=Auth::user()->id;
+      $my_appointments=Appointment::where('user_id',$userId)->get();
+      return view('appointments.my-appointments',compact('my_appointments'));
 
-//   }
+   }
 
 }
