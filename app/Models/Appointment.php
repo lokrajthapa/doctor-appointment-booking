@@ -12,8 +12,8 @@ class Appointment extends Model
 
     protected $fillable=['appointment_type',
     'user_id',
-    'department_id',
-    'doctor_id',
+    'department_name',
+    'doctor_name',
     'appointment_time'];
 
    public function user():BelongsTo
