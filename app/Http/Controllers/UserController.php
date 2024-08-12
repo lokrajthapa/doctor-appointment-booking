@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -24,14 +25,8 @@ class UserController extends Controller
     }
 
     // Store a newly created resource in storage.
-    public function store(Request $request)
+    public function store(UserStoreRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
-            'user_type' => 'required|in:patient,doctor,admin',
-        ]);
 
         $user = new User([
             'name' => $request->get('name'),
@@ -71,7 +66,9 @@ class UserController extends Controller
     public function update(UserUpdateRequest $request, $id)
     {
 
+
         $user = User::find($id);
+
         Gate::authorize('update', $user);
 
         if ($request->hasFile('profile_image')) {

@@ -31,6 +31,7 @@ class UserPolicy
      */
     public function update(User $user, User $model): bool
     {
+
         return $user->id === $model->id || $user->user_type === 'admin' ;
     }
 
