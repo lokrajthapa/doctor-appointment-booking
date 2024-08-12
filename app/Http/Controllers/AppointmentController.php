@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\appointment\AppointmentStoreRequest;
 use App\Models\Appointment;
 use App\Models\Department;
 use Illuminate\Support\Facades\Auth;
@@ -33,17 +34,8 @@ class AppointmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(AppointmentStoreRequest $request)
     {
-
-
-        $request->validate([
-            'department_name' => 'required|max:255',
-            'doctor_name' => 'required',
-            'appointment_time' => 'required',
-
-        ]);
-
 
         $appointment = new Appointment([
             'user_id'=>$request->get('user_id'),
